@@ -11,7 +11,7 @@ mixin BasePage {
       case PageState.normal:
         return normalBody;
       case PageState.loading:
-        return const CircularProgressIndicator();
+        return Center(child: const CircularProgressIndicator());
       case PageState.noneData:
         return const Text('error');
       case PageState.error:
