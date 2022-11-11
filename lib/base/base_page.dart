@@ -1,0 +1,21 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:household_expenses_app/base/base_view_model.dart';
+
+mixin BasePage {
+  Widget initBody({
+    required PageState pageState,
+    required Widget normalBody,
+  }) {
+    switch (pageState) {
+      case PageState.normal:
+        return normalBody;
+      case PageState.loading:
+        return const CircularProgressIndicator();
+      case PageState.noneData:
+        return const Text('error');
+      case PageState.error:
+        return const Text('error');
+    }
+  }
+}
