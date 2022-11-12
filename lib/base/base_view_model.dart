@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:household_expenses_app/common/hive_use_case.dart';
 
 enum PageState {
   loading,
@@ -8,6 +9,7 @@ enum PageState {
 }
 
 class BaseViewModel extends ChangeNotifier {
+  final hiveUseCase = HiveUseCase();
   bool _isDisposed = false;
   PageState _pageState = PageState.normal;
   PageState get pageState => _pageState;

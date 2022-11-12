@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget with BasePage {
     return Column(
       children: [
         _buildListWidget(ref),
-        _buildAddButtonWidget(),
+        _buildAddButtonWidget(ref),
       ],
     );
   }
@@ -61,37 +61,12 @@ class HomePage extends StatelessWidget with BasePage {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('日付'),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: const [
-                                Icon(Icons.ac_unit),
-                                Text('種類'),
-                                Text('\$2.0'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: const [
-                                Icon(Icons.ac_unit),
-                                Text('種類'),
-                                Text('\$2.0'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                    Column(
+                      children: ref
+                          .read(homeViewModelProvider)
+                          .readCategoryList()
+                          .map((e) => HomeItemWidget(content: e))
+                          .toList(),
                     ),
                   ],
                 ),
@@ -103,7 +78,7 @@ class HomePage extends StatelessWidget with BasePage {
     );
   }
 
-  Widget _buildAddButtonWidget() {
+  Widget _buildAddButtonWidget(WidgetRef ref) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -115,12 +90,39 @@ class HomePage extends StatelessWidget with BasePage {
               bottom: 10.0,
             ),
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                ref.read(homeViewModelProvider).addCategory();
+              },
               icon: Icon(Icons.add),
               label: Text('text'),
               style: ElevatedButton.styleFrom(),
             ),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class HomeItemWidget extends StatelessWidget {
+  final String content;
+  const HomeItemWidget({Key? key, required this.content}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.ac_unit),
+                Text(content),
+                const Text('\$2.0'),
+              ],
+            ),
+          ],
         ),
       ],
     );

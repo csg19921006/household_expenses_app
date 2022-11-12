@@ -26,4 +26,13 @@ class HomeViewModel extends BaseViewModel {
   void reFreshData() {
     _loadData();
   }
+
+  List<String> readCategoryList() {
+    return hiveUseCase.readCategoryList();
+  }
+
+  void addCategory() async {
+    await hiveUseCase.addCategory('食事');
+    notifyListeners();
+  }
 }
