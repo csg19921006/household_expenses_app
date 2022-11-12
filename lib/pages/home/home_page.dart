@@ -11,21 +11,80 @@ class HomePage extends StatelessWidget with BasePage {
   @override
   Widget build(BuildContext context) {
     final title = LocaleString.home.tr();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Consumer(
-        builder: (context, ref, child) {
-          final pageState = ref.watch(homeViewModelProvider).pageState;
-          return initBody(
+    return Consumer(
+      builder: (context, ref, child) {
+        final pageState = ref.watch(homeViewModelProvider).pageState;
+        return initBody(
             pageState: pageState,
-            normalBody: Center(
-              child: Text(title),
-            ),
-          );
-        },
-      ),
+            normalBody: Column(
+              children: [
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverAppBar(
+                        pinned: true,
+                        expandedHeight: 200.0,
+                        stretch: true,
+                        flexibleSpace: FlexibleSpaceBar(
+                          stretchModes: const [
+                            StretchMode.fadeTitle,
+                            StretchMode.zoomBackground,
+                            StretchMode.blurBackground,
+                          ],
+                          background: Image.asset(
+                            'assets/image/background_image.png',
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                        leading: const Icon(Icons.note),
+                      ),
+                      SliverFixedExtentList(
+                          itemExtent: 50.0,
+                          delegate: SliverChildListDelegate([
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                            Text('1'),
+                          ])),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          left: 10.0,
+                          right: 10.0,
+                          bottom: 10.0,
+                        ),
+                        child: ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.add),
+                          label: Text('text'),
+                          style: ElevatedButton.styleFrom(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ));
+      },
     );
   }
 }

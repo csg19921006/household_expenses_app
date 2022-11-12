@@ -18,8 +18,9 @@ class App extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       theme: ThemeData(
-        iconTheme: const IconThemeData(
-          color: Colors.orange,
+        primaryColor: AppColor.buttonBackground,
+        colorScheme: const ColorScheme.light(
+          primary: AppColor.buttonBackground,
         ),
       ),
     );

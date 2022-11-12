@@ -26,6 +26,7 @@ class AppPagePath {
 
 class AppColor {
   static const icon = Colors.orange;
+  static const buttonBackground = Color(0xFFFF5555);
 }
 
 class LocaleString {

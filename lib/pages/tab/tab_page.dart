@@ -16,7 +16,7 @@ class TapPage extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           // unselectedLabelStyle: const TextStyle(color: Colors.black),
           // selectedLabelStyle: const TextStyle(color: Colors.orange),
-          selectedItemColor: Colors.black,
+          selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.grey,
           currentIndex: currentIndex,
           onTap: (index) {
