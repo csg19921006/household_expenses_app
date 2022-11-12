@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:household_expenses_app/base/base_page.dart';
@@ -9,17 +10,18 @@ class ProfilePage extends StatelessWidget with BasePage {
 
   @override
   Widget build(BuildContext context) {
+    final title = LocaleString.profile.tr();
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppString.profilePageTitle),
+        title: Text(title),
       ),
       body: Consumer(
         builder: (context, ref, child) {
           final pageState = ref.watch(profileViewModelProvider).pageState;
           return initBody(
             pageState: pageState,
-            normalBody: const Center(
-              child: Text('BillPage'),
+            normalBody: Center(
+              child: Text(title),
             ),
           );
         },

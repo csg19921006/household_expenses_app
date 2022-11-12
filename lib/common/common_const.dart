@@ -27,3 +27,10 @@ class AppPagePath {
 class AppColor {
   static const icon = Colors.orange;
 }
+
+class LocaleString {
+  static const home = 'home';
+  static const bill = 'bill';
+  static const report = 'report';
+  static const profile = 'profile';
+}

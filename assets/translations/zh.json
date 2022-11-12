@@ -1,6 +1,6 @@
 {
-  "title": "世界",
-  "content": {
-    "message": "世界,世界,世界"
-  }
+  "home": "主页",
+  "bill": "账单",
+  "report": "报表",
+  "profile": "我"
 }
