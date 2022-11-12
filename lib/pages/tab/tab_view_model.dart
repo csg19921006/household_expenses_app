@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:household_expenses_app/base/base_view_model.dart';
@@ -14,10 +15,10 @@ final tabChangeNotifierProvider =
 
 class TabViewModel extends BaseViewModel {
   final tabModelList = [
-    TabModel('home', const Icon(Icons.home_outlined)),
-    TabModel('bill', const Icon(Icons.event_note)),
-    TabModel('report', const Icon(Icons.monitor_heart_outlined)),
-    TabModel('profile', const Icon(Icons.person_outline)),
+    TabModel('home'.tr(), const Icon(Icons.home_outlined)),
+    TabModel('bill'.tr(), const Icon(Icons.event_note)),
+    TabModel('report'.tr(), const Icon(Icons.monitor_heart_outlined)),
+    TabModel('profile'.tr(), const Icon(Icons.person_outline)),
   ];
   final tabPageList = [
     const HomePage(),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:household_expenses_app/common/common_const.dart';
@@ -13,6 +14,9 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: _router,
       title: AppString.appTitle,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: ThemeData(
         iconTheme: const IconThemeData(
           color: Colors.orange,
