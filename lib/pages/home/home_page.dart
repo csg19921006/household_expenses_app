@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:household_expenses_app/base/base_page.dart';
-import 'package:household_expenses_app/common/common_const.dart';
 import 'package:household_expenses_app/pages/home/home_view_model.dart';
 
 class HomePage extends StatelessWidget with BasePage {
@@ -10,81 +8,121 @@ class HomePage extends StatelessWidget with BasePage {
 
   @override
   Widget build(BuildContext context) {
-    final title = LocaleString.home.tr();
     return Consumer(
       builder: (context, ref, child) {
         final pageState = ref.watch(homeViewModelProvider).pageState;
         return initBody(
-            pageState: pageState,
-            normalBody: Column(
-              children: [
-                Expanded(
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverAppBar(
-                        pinned: true,
-                        expandedHeight: 200.0,
-                        stretch: true,
-                        flexibleSpace: FlexibleSpaceBar(
-                          stretchModes: const [
-                            StretchMode.fadeTitle,
-                            StretchMode.zoomBackground,
-                            StretchMode.blurBackground,
-                          ],
-                          background: Image.asset(
-                            'assets/image/background_image.png',
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                        leading: const Icon(Icons.note),
-                      ),
-                      SliverFixedExtentList(
-                          itemExtent: 50.0,
-                          delegate: SliverChildListDelegate([
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                            Text('1'),
-                          ])),
-                    ],
-                  ),
+          pageState: pageState,
+          normalBody: _buildNormalBodyWidget(ref),
+        );
+      },
+    );
+  }
+
+  Widget _buildNormalBodyWidget(WidgetRef ref) {
+    return Column(
+      children: [
+        _buildListWidget(ref),
+        _buildAddButtonWidget(),
+      ],
+    );
+  }
+
+  Widget _buildListWidget(WidgetRef ref) {
+    return Expanded(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          ref.read(homeViewModelProvider).reFreshData();
+        },
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              expandedHeight: 200.0,
+              stretch: true,
+              flexibleSpace: FlexibleSpaceBar(
+                stretchModes: const [
+                  StretchMode.fadeTitle,
+                  StretchMode.zoomBackground,
+                  StretchMode.blurBackground,
+                ],
+                background: Image.asset(
+                  'assets/image/background_image.png',
+                  fit: BoxFit.fitWidth,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              leading: const Icon(Icons.note),
+            ),
+            SliverList(
+                delegate: SliverChildListDelegate([
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          left: 10.0,
-                          right: 10.0,
-                          bottom: 10.0,
+                    const Text('日付'),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                Icon(Icons.ac_unit),
+                                Text('種類'),
+                                Text('\$2.0'),
+                              ],
+                            ),
+                          ],
                         ),
-                        child: ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: Icon(Icons.add),
-                          label: Text('text'),
-                          style: ElevatedButton.styleFrom(),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                Icon(Icons.ac_unit),
+                                Text('種類'),
+                                Text('\$2.0'),
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ));
-      },
+              ),
+            ])),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddButtonWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(
+              left: 10.0,
+              right: 10.0,
+              bottom: 10.0,
+            ),
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: Icon(Icons.add),
+              label: Text('text'),
+              style: ElevatedButton.styleFrom(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

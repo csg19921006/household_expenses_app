@@ -22,4 +22,8 @@ class HomeViewModel extends BaseViewModel {
       pageState = PageState.error;
     }
   }
+
+  void reFreshData() {
+    _loadData();
+  }
 }
