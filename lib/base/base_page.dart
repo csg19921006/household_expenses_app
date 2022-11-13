@@ -9,7 +9,10 @@ mixin BasePage {
   }) {
     switch (pageState) {
       case PageState.normal:
-        return normalBody;
+        return Container(
+          color: Colors.white,
+          child: normalBody,
+        );
       case PageState.loading:
         return const Center(child: CircularProgressIndicator());
       case PageState.noneData:

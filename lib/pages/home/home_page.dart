@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:household_expenses_app/base/base_page.dart';
+import 'package:household_expenses_app/common/common_const.dart';
 import 'package:household_expenses_app/pages/home/home_view_model.dart';
+import 'package:household_expenses_app/widgets/common_button_widget.dart';
 
 class HomePage extends StatelessWidget with BasePage {
   const HomePage({Key? key}) : super(key: key);
@@ -13,17 +16,21 @@ class HomePage extends StatelessWidget with BasePage {
         final pageState = ref.watch(homeViewModelProvider).pageState;
         return initBody(
           pageState: pageState,
-          normalBody: _buildNormalBodyWidget(ref),
+          normalBody: _buildNormalBodyWidget(context, ref),
         );
       },
     );
   }
 
-  Widget _buildNormalBodyWidget(WidgetRef ref) {
+  Widget _buildNormalBodyWidget(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         _buildListWidget(ref),
-        _buildAddButtonWidget(ref),
+        CommonButtonWidget(
+          onPressed: () {
+            context.pushNamed(AppPageName.input);
+          },
+        ),
       ],
     );
   }
@@ -65,7 +72,7 @@ class HomePage extends StatelessWidget with BasePage {
                       children: ref
                           .read(homeViewModelProvider)
                           .readCategoryList()
-                          .map((e) => HomeItemWidget(content: e))
+                          .map((e) => HomeItemWidget(content: e.name))
                           .toList(),
                     ),
                   ],
@@ -75,31 +82,6 @@ class HomePage extends StatelessWidget with BasePage {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildAddButtonWidget(WidgetRef ref) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Container(
-            margin: const EdgeInsets.only(
-              left: 10.0,
-              right: 10.0,
-              bottom: 10.0,
-            ),
-            child: ElevatedButton.icon(
-              onPressed: () {
-                ref.read(homeViewModelProvider).addCategory();
-              },
-              icon: Icon(Icons.add),
-              label: Text('text'),
-              style: ElevatedButton.styleFrom(),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -1,16 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:household_expenses_app/base/base_view_model.dart';
 import 'package:household_expenses_app/model/person.dart';
-import 'package:household_expenses_app/pages/home/home_use_case.dart';
+import 'package:household_expenses_app/pages/input/input_use_case.dart';
 
-final homeViewModelProvider = ChangeNotifierProvider<HomeViewModel>((ref) {
-  return HomeViewModel(HomePageUseCase());
+final inputViewModelProvider =
+    ChangeNotifierProvider.autoDispose<InputViewModel>((ref) {
+  return InputViewModel(InputPageUseCase());
 });
 
-class HomeViewModel extends BaseViewModel {
-  final HomePageUseCase _useCase;
+class InputViewModel extends BaseViewModel {
+  final InputPageUseCase _useCase;
 
-  HomeViewModel(this._useCase) {
+  InputViewModel(this._useCase) {
     _loadData();
   }
 
@@ -29,7 +30,8 @@ class HomeViewModel extends BaseViewModel {
   }
 
   List<CategoryModel> readCategoryList() {
-    return hiveUseCase.readCategoryList();
+    final list = List<CategoryModel>.from(hiveUseCase.readCategoryList());
+    return list;
   }
 
   void addCategory() async {

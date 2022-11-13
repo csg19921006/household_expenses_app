@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
+import 'package:household_expenses_app/model/person.dart';
 import 'package:path_provider/path_provider.dart';
 
 class HiveUseCase extends ChangeNotifier {
@@ -10,21 +11,25 @@ class HiveUseCase extends ChangeNotifier {
   late final Box _box;
   Future<void> init() async {
     final directory = await getApplicationDocumentsDirectory();
-    Hive.init(directory.path);
-    _box = await Hive.openBox('box');
-    print(_box);
+    Hive
+      ..init(directory.path)
+      ..registerAdapter(CategoryModelAdapter());
+    _box = await Hive.openBox<CategoryModel>('box');
   }
 
-  List<String> readCategoryList() {
+  List<CategoryModel> readCategoryList() {
     try {
-      final result = List<String>.from(_box.values);
+      final result = List<CategoryModel>.from(_box.values);
       return result;
     } catch (_) {
       return [];
     }
   }
 
-  Future<void> addCategory(String category) async {
-    _box.add(category);
+  Future<void> addCategory(CategoryModel model) async {
+    final list = List<CategoryModel>.from(_box.values);
+    if (!list.map((e) => e.name).contains(model.name)) {
+      _box.add(model);
+    }
   }
 }

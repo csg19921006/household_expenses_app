@@ -14,6 +14,8 @@ class AppPageName {
   static const bill = 'bill';
   static const report = 'report';
   static const profile = 'profile';
+  static const input = 'input';
+  static const category = 'category';
 }
 
 class AppPagePath {
@@ -22,6 +24,8 @@ class AppPagePath {
   static const bill = 'bill';
   static const report = 'report';
   static const profile = 'profile';
+  static const input = 'input';
+  static const category = 'category';
 }
 
 class AppColor {

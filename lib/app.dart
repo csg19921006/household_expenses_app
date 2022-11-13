@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:household_expenses_app/common/common_const.dart';
 import 'package:household_expenses_app/pages/bill/bill_page.dart';
+import 'package:household_expenses_app/pages/category/category_page.dart';
 import 'package:household_expenses_app/pages/home/home_page.dart';
+import 'package:household_expenses_app/pages/input/input_page.dart';
 import 'package:household_expenses_app/pages/tab/tab_page.dart';
 
 class App extends StatelessWidget {
@@ -56,6 +58,20 @@ class App extends StatelessWidget {
             name: AppPageName.profile,
             builder: (BuildContext context, GoRouterState state) =>
                 const BillPage(),
+          ),
+          GoRoute(
+            path: AppPagePath.input,
+            name: AppPageName.input,
+            pageBuilder: (context, state) =>
+                const MaterialPage(fullscreenDialog: true, child: InputPage()),
+            routes: [
+              GoRoute(
+                path: AppPagePath.category,
+                name: AppPageName.category,
+                builder: (BuildContext context, GoRouterState state) =>
+                    const CategoryPage(),
+              ),
+            ],
           ),
         ],
       ),
